@@ -10,7 +10,7 @@ public interface VersionVehiculoRepository extends JpaRepository<VersionVehiculo
 
     List<VersionVehiculo> findByModeloId(long modeloId);
 
-    Optional<VersionVehiculo> findByNombre(String nombre);
+    Optional<VersionVehiculo> findByNombreVersion(String nombreVersion);
 
     boolean existsByNombreVersionAndModeloId(String nombreVersion, Long modeloId);
 }

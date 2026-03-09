@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface UsuarioRepositoy extends JpaRepository<Usuario, Long> { // Extiende JpaRepository para proporcionar métodos CRUD básicos
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> { // Extiende JpaRepository para proporcionar métodos CRUD básicos
 
     Optional<Usuario> findByUsername(String username); // Método para encontrar un usuario por su nombre de usuario
 
