@@ -523,61 +523,63 @@ function CatalogPage() {
           </div>
         )}
 
-        <section className="grid gap-6 xl:grid-cols-[260px_260px_260px_minmax(0,1fr)]">
-          <div>
-            {loadingBrands ? (
-              <Loader text="Cargando marcas..." />
-            ) : (
-              <BrandList
-                brands={filteredBrands}
-                selectedBrand={selectedBrand}
-                onSelectBrand={handleSelectBrand}
-              />
-            )}
-          </div>
+        <section className="space-y-6">
+  <div className="grid gap-6 xl:grid-cols-3">
+    <div>
+      {loadingBrands ? (
+        <Loader text="Cargando marcas..." />
+      ) : (
+        <BrandList
+          brands={filteredBrands}
+          selectedBrand={selectedBrand}
+          onSelectBrand={handleSelectBrand}
+        />
+      )}
+    </div>
 
-          <div>
-            {loadingModels ? (
-              <Loader text="Cargando modelos..." />
-            ) : (
-              <ModelList
-                models={filteredModels}
-                selectedModel={selectedModel}
-                onSelectModel={handleSelectModel}
-                selectedBrand={selectedBrand}
-              />
-            )}
-          </div>
+    <div>
+      {loadingModels ? (
+        <Loader text="Cargando modelos..." />
+      ) : (
+        <ModelList
+          models={filteredModels}
+          selectedModel={selectedModel}
+          onSelectModel={handleSelectModel}
+          selectedBrand={selectedBrand}
+        />
+      )}
+    </div>
 
-          <div>
-            {loadingVersions ? (
-              <Loader text="Cargando versiones..." />
-            ) : (
-              <VersionList
-                versions={filteredVersions}
-                selectedVersion={selectedVersion}
-                onSelectVersion={handleSelectVersion}
-                selectedModel={selectedModel}
-              />
-            )}
-          </div>
+    <div>
+      {loadingVersions ? (
+        <Loader text="Cargando versiones..." />
+      ) : (
+        <VersionList
+          versions={filteredVersions}
+          selectedVersion={selectedVersion}
+          onSelectVersion={handleSelectVersion}
+          selectedModel={selectedModel}
+        />
+      )}
+    </div>
+  </div>
 
-          <div>
-            {selectedBrand || selectedModel || selectedVersion ? (
-              <VehicleDetail
-                selectedBrand={selectedBrand}
-                selectedModel={selectedModel}
-                selectedVersion={selectedVersion}
-                role={logged ? role : "USER"}
-              />
-            ) : (
-              <EmptyState
-                title="Explora el catálogo"
-                message="Selecciona una marca, después un modelo y luego una versión para ver su información."
-              />
-            )}
-          </div>
-        </section>
+  <div>
+    {selectedBrand || selectedModel || selectedVersion ? (
+      <VehicleDetail
+        selectedBrand={selectedBrand}
+        selectedModel={selectedModel}
+        selectedVersion={selectedVersion}
+        role={logged ? role : "USER"}
+      />
+    ) : (
+      <EmptyState
+        title="Explora el catálogo"
+        message="Selecciona una marca, después un modelo y luego una versión para ver su información."
+      />
+    )}
+  </div>
+</section>
 
         <Modal
           isOpen={modalType === "login"}
