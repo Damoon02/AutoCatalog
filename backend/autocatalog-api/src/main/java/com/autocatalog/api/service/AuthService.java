@@ -21,20 +21,26 @@ public class AuthService {
 
     // Method to authenticate the user and generate a JWT token if the credentials are valid
     public AuthResponse login(AuthRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getUsername(),
-                        request.getPassword()
-                )
-        );
+    authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(
+                    request.getUsername(),
+                    request.getPassword()
+            )
+    );
 
-        // Load user details and generate a JWT token for the authenticated user
-        UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
-        String token = jwtService.generateToken(userDetails);
+    UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
+    String token = jwtService.generateToken(userDetails);
 
-        // Return the generated token in the authentication response
-        return AuthResponse.builder()
-                .token(token)
-                .build();
-    }
+    String role = userDetails.getAuthorities()
+            .stream()
+            .findFirst()
+            .map(auth -> auth.getAuthority().replace("ROLE_", ""))
+            .orElse("USER");
+
+    return AuthResponse.builder()
+            .token(token)
+            .username(userDetails.getUsername())
+            .role(role)
+            .build();
+}
 }

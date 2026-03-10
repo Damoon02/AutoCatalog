@@ -7,8 +7,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
-// DTO for authentication response containing the generated token
 public class AuthResponse {
     private String token;
+    private String username;
+    private String role;
 }

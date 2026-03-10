@@ -1,4 +1,4 @@
-import { apiRequest, setToken, removeToken, getToken } from "./api";
+import { apiRequest, getToken } from "./api";
 
 export async function login(username, password) {
   const data = await apiRequest("/auth/login", {
@@ -7,16 +7,24 @@ export async function login(username, password) {
   });
 
   if (data.token) {
-    setToken(data.token);
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("username", data.username);
+    localStorage.setItem("role", data.role);
   }
 
   return data;
 }
 
 export function logout() {
-  removeToken();
+  localStorage.removeItem("token");
+  localStorage.removeItem("username");
+  localStorage.removeItem("role");
 }
 
 export function isAuthenticated() {
   return !!getToken();
+}
+
+export function getUserRole() {
+  return localStorage.getItem("role");
 }
